@@ -121,16 +121,16 @@ const handleNext = () => {
 
 /* Применяем анимацию к контейнеру с лисой */
 .animate-fox-container {
-  animation: slide-up-fade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+  animation: slide-up-fade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
 }
 
 /* Анимация первой кнопки с задержкой */
 .animate-button-1 {
-  animation: button-appear 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+  animation: button-appear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
 }
 
 /* Анимация второй кнопки с большей задержкой */
 .animate-button-2 {
-  animation: button-appear 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
+  animation: button-appear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
 }
 </style>
