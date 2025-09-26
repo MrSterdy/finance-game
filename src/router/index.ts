@@ -7,6 +7,16 @@ const router = createRouter({
       name: 'onboarding',
       path: '/onboarding',
       component: () => import('@/pages/onboarding/index.vue'),
+    },
+    {
+      name: 'start-screen',
+      path: '/start-screen',
+      component: () => import('@/pages/startScreen/index.vue'),
+    },
+    {
+      name: 'session',
+      path: '/session',
+      component: () => import('@/pages/session/index.vue'),
     }
   ],
 })

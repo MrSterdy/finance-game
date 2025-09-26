@@ -4,11 +4,14 @@ import { Progress } from '@/components/ui/progress';
 import KeepProgressOnboardingContent from '@/components/pages/onboarding/KeepProgressOnboardingContent.vue';
 import MakeMoneyOnboardingContent from '@/components/pages/onboarding/MakeMoneyOnboardingContent.vue';
 import HelpAnimalsOnboardingContent from '@/components/pages/onboarding/HelpAnimalsOnboardingContent.vue';
+import {useRouter} from "vue-router";
 
 // Текущий шаг онбординга (0, 1 или 2)
 const currentStep = ref(0);
 // Общее количество шагов в онбординге
 const totalSteps = 3;
+// Получаем router
+const router = useRouter()
 
 // Цвета фона для каждого шага онбординга
 const backgroundColors = [
@@ -32,10 +35,13 @@ const progressValue = (step: number) => {
 /**
  * Переход к следующему шагу онбординга
  * Проверяет, что не превышен максимальный шаг
+ * Если привышен открывается первый экран игры
  */
 const nextStep = () => {
   if (currentStep.value < totalSteps - 1) {
     currentStep.value++;
+  }else{
+    router.push('/start-screen')
   }
 };
 
