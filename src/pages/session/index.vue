@@ -23,13 +23,10 @@ const leaveSession = () => {
 </script>
 
 <template>
-  <!-- Основной контейнер с плавным переходом цвета фона -->
   <div
       class="flex min-h-dvh transition-colors duration-500 ease-in-out bg-stone-100"
   >
-    <!-- Основная область контента с ограниченной шириной -->
     <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden">
-      <!-- Шапка с индикаторами прогресса для каждого шага -->
       <header class="grid grid-cols-3 gap-1 py-4 p-4 items-center">
         <svg
             xmlns="http://www.w3.org/2000/svg"

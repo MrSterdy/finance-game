@@ -11,13 +11,10 @@ const startSession = () => {
 </script>
 
 <template>
-  <!-- Основной контейнер с плавным переходом цвета фона -->
   <div
       class="flex min-h-dvh transition-colors duration-500 ease-in-out bg-stone-100"
   >
-    <!-- Основная область контента с ограниченной шириной -->
     <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden">
-      <!-- Шапка с индикаторами прогресса для каждого шага -->
       <header class="grid grid-cols-3 gap-1 py-4 p-4 items-center">
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,12 +30,7 @@ const startSession = () => {
       </header>
 
       <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between">
-        <!-- Основная информация -->
         <div></div>
-<!--        <div class="flex flex-col gap-3">-->
-<!--          <h1 class="font-semibold text-3xl">Помогите зверям изучить фин. грамотность</h1>-->
-<!--          <p>Проверьте свои знания в области финансов и постарайтесь помочь всем животным с их финансовыми вопросами в формате увлекательной мини-игры</p>-->
-<!--        </div>-->
         <Button size="lg" class="text-base" @click="startSession">Начать сессию</Button>
       </section>
     </main>
