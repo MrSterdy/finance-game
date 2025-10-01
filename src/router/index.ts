@@ -11,7 +11,7 @@ const router = createRouter({
     {
       name: 'start-screen',
       path: '/start-screen',
-      component: () => import('@/pages/startScreen/index.vue'),
+      component: () => import('@/pages/start-screen/index.vue'),
     },
     {
       name: 'session',
