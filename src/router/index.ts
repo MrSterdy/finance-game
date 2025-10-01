@@ -17,6 +17,11 @@ const router = createRouter({
       name: 'session',
       path: '/session',
       component: () => import('@/pages/session/index.vue'),
+    },
+    {
+      name: 'statistics',
+      path: '/statistics',
+      component: () => import('@/pages/statistics/index.vue'),
     }
   ],
 })
