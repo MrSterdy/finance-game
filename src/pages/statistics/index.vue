@@ -211,7 +211,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
 
       <ul class="flex flex-col w-full px-4 pb-4">
         <li class="flex items-start gap-4 bg-background py-2 pl-2 pr-5 rounded-t-2xl">
-          <div class="bg-blue-200 rounded-lg p-3">
+          <div class="bg-blue-200 rounded-lg px-3.5 py-3 aspect-square">
             <Icon name="controller-stick" class="text-blue-600 size-5" />
           </div>
           <div class="flex flex-grow flex-col gap-3">
@@ -226,7 +226,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
           </div>
         </li>
         <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg p-3">
+          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
             <Icon name="chat-bubble" class="text-blue-600 size-5" />
           </div>
           <div class="flex flex-grow flex-col gap-3">
@@ -241,7 +241,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
           </div>
         </li>
         <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg p-3">
+          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
             <Icon name="thumbs-up" class="text-blue-600 size-5" />
           </div>
           <div class="flex flex-grow flex-col gap-3">
@@ -256,7 +256,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
           </div>
         </li>
         <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg p-3">
+          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
             <Icon name="stopwatch" class="text-blue-600 size-5" />
           </div>
           <div class="flex flex-grow flex-col gap-3">
@@ -271,7 +271,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
           </div>
         </li>
         <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5 rounded-b-2xl">
-          <div class="bg-blue-200 rounded-lg p-3">
+          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
             <Icon name="flame" class="text-blue-600 size-5" />
           </div>
           <div class="flex flex-grow flex-col gap-3">

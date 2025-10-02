@@ -522,7 +522,7 @@ const getAnswerIcon = (answerIndex: number) => {
           </div>
           <ul class="flex flex-col w-full">
             <li class="flex items-start gap-4 bg-background py-2 pl-2 pr-5 rounded-t-2xl">
-              <div class="bg-blue-200 rounded-lg p-3">
+              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
                 <Icon name="thumbs-up" class="text-blue-600 size-5" />
               </div>
               <div class="flex flex-grow flex-col gap-3">
@@ -537,7 +537,7 @@ const getAnswerIcon = (answerIndex: number) => {
               </div>
             </li>
             <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-              <div class="bg-blue-200 rounded-lg p-3">
+              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
                 <Icon name="thumbs-down" class="text-blue-600 size-5" />
               </div>
               <div class="flex flex-grow flex-col gap-3">
@@ -552,7 +552,7 @@ const getAnswerIcon = (answerIndex: number) => {
               </div>
             </li>
             <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5 rounded-b-2xl">
-              <div class="bg-blue-200 rounded-lg p-3">
+              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
                 <Icon name="stopwatch" class="text-blue-600 size-5" />
               </div>
               <div class="flex flex-grow flex-col gap-3">
