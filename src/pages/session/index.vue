@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { vConfetti } from '@neoconfetti/vue';
 import { Icon } from '@/components/ui/icon';
 import { Motion } from 'motion-v';
-import { updateGameStatistics } from '@/lib/storage/profile';
+import { updateGameStatistics, profile } from '@/lib/storage/profile';
 
 const {
   session,
@@ -26,6 +26,11 @@ const {
   selectAnswer,
   next
 } = useQuizSession()
+
+// Текущий день (для отображения)
+const currentDay = computed(() => {
+  return profile.value.statistics.gamesPlayed.length + 1
+})
 
 const windowHeight = ref<number | null>(null)
 
@@ -302,8 +307,7 @@ const getAnswerIcon = (answerIndex: number) => {
         <RouterLink class="text-muted-foreground" :to="{ name: 'start-screen' }">
           <Icon name="arrow-left" />
         </RouterLink>
-
-        <h1 class="font-semibold text-xl text-center">Сессия</h1>
+        <h1 class="font-semibold text-xl text-center">День {{ currentDay }}</h1>
       </header>
 
       <div class="pt-2 flex flex-col px-4">
