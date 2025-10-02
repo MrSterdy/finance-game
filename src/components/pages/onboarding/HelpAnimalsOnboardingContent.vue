@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock3 } from 'lucide-vue-next';
 import FoxCharacterSrc from '@/assets/images/characters/fox.png';
+import { Icon } from '@/components/ui/icon';
 
 // Определяем эмиты для связи с родительским компонентом
 const emit = defineEmits<{
@@ -50,8 +51,8 @@ const handleNext = () => {
                     <!-- Диалоговое окно с персонажем (анимируется) -->
                     <div class="rounded-2xl bg-background max-w-56 portrait:max-w-48 aspect-square p-4 portrait:p-3 flex flex-col relative left-6 portrait:left-4 shadow-xl animate-fox-container">
                         <!-- Таймер вопроса -->
-                        <Badge class="rounded-sm">
-                            <Clock3 />
+                        <Badge class="rounded-sm text-blue-600 bg-blue-200">
+                            <Icon name="clock" />
                             {{ ' ' }}
                             0:24
                         </Badge>
