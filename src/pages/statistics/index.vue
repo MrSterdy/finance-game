@@ -155,31 +155,31 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
 
 <template>
   <div class="flex min-h-dvh bg-stone-100">
-    <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden">
-      <header class="grid grid-cols-3 gap-4 p-4 items-center">
+    <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden portrait:max-w-full portrait:px-0">
+      <header class="grid grid-cols-3 gap-4 p-4 portrait:p-3 portrait:py-2 items-center">
         <RouterLink class="text-muted-foreground" :to="{ name: 'start-screen' }">
-          <Icon name="arrow-left" />
+          <Icon name="arrow-left" class="portrait:w-5 portrait:h-5" />
         </RouterLink>
-        <h1 class="font-semibold text-xl text-center">Статистика</h1>
+        <h1 class="font-semibold text-xl portrait:text-lg text-center">Статистика</h1>
       </header>
 
-      <nav class="flex items-center justify-center gap-2">
+      <nav class="flex items-center justify-center gap-2 portrait:gap-1.5 portrait:px-4">
         <Button
-          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 rounded-lg h-9 text-base"
+          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 portrait:px-2 rounded-lg h-9 portrait:h-8 text-base portrait:text-sm"
           :class="{ 'bg-blue-600 text-white hover:bg-blue-600/90': activeBlock === 'allTime' }"
           @click="switchBlock('allTime')"
         >
           Всё время
         </Button>
         <Button
-          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 rounded-lg h-9 text-base"
+          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 portrait:px-2 rounded-lg h-9 portrait:h-8 text-base portrait:text-sm"
           :class="{ 'bg-blue-600 text-white hover:bg-blue-600/90': activeBlock === 'month' }"
           @click="switchBlock('month')"
         >
           Месяц
         </Button>
         <Button
-          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 rounded-lg h-9 text-base"
+          class="bg-white text-blue-600 hover:bg-blue-100 shadow-none px-3 portrait:px-2 rounded-lg h-9 portrait:h-8 text-base portrait:text-sm"
           :class="{ 'bg-blue-600 text-white hover:bg-blue-600/90': activeBlock === 'week' }"
           @click="switchBlock('week')"
         >
@@ -188,11 +188,11 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
       </nav>
 
 <!--      Разные календарики диограмки-->
-      <section class="p-4">
-        <div class="bg-white flex flex-col gap-4 rounded-xl py-3 px-4">
+      <section class="p-4 portrait:px-6 portrait:py-3">
+        <div class="bg-white flex flex-col gap-4 portrait:gap-3 rounded-xl py-3 portrait:py-2 px-4 portrait:px-3">
           <div class="flex flex-col">
-            <h3 class="font-semibold">Монет заработано</h3>
-            <span class="text-muted-foreground text-sm">{{ activeBlockLabel }}</span>
+            <h3 class="font-semibold portrait:text-sm">Монет заработано</h3>
+            <span class="text-muted-foreground text-sm portrait:text-xs">{{ activeBlockLabel }}</span>
           </div>
           <WeeklyBarChart 
             v-if="activeBlock === 'week'"
@@ -209,78 +209,78 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
         </div>
       </section>
 
-      <ul class="flex flex-col w-full px-4 pb-4">
-        <li class="flex items-start gap-4 bg-background py-2 pl-2 pr-5 rounded-t-2xl">
-          <div class="bg-blue-200 rounded-lg px-3.5 py-3 aspect-square">
-            <Icon name="controller-stick" class="text-blue-600 size-5" />
+      <ul class="flex flex-col w-full px-4 portrait:px-6 pb-4 portrait:pb-6">
+        <li class="flex items-start gap-4 portrait:gap-3 bg-background py-2 pl-2 pr-5 portrait:pr-4 rounded-t-2xl">
+          <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5 aspect-square">
+            <Icon name="controller-stick" class="text-blue-600 size-5 portrait:size-4" />
           </div>
-          <div class="flex flex-grow flex-col gap-3">
-            <div class="flex justify-between gap-4 items-center w-full">
+          <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+            <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
               <div class="flex flex-col w-full">
-                <span class="font-semibold">Игр сыграно</span>
-                <span class="text-muted-foreground text-base/4">в штуках</span>
+                <span class="font-semibold portrait:text-sm">Игр сыграно</span>
+                <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">{{ gamesPlayed }}</span>
+              <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ gamesPlayed }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
         </li>
-        <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-            <Icon name="chat-bubble" class="text-blue-600 size-5" />
+        <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4">
+          <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+            <Icon name="chat-bubble" class="text-blue-600 size-5 portrait:size-4" />
           </div>
-          <div class="flex flex-grow flex-col gap-3">
-            <div class="flex justify-between gap-4 items-center w-full">
+          <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+            <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
               <div class="flex flex-col w-full">
-                <span class="font-semibold">Дано ответов</span>
-                <span class="text-muted-foreground text-base/4">в штуках</span>
+                <span class="font-semibold portrait:text-sm">Дано ответов</span>
+                <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">{{ totalAnswers }}</span>
+              <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ totalAnswers }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
         </li>
-        <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-            <Icon name="thumbs-up" class="text-blue-600 size-5" />
+        <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4">
+          <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+            <Icon name="thumbs-up" class="text-blue-600 size-5 portrait:size-4" />
           </div>
-          <div class="flex flex-grow flex-col gap-3">
-            <div class="flex justify-between gap-4 items-center w-full">
+          <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+            <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
               <div class="flex flex-col w-full">
-                <span class="font-semibold">Правильных ответов</span>
-                <span class="text-muted-foreground text-base/4">в штуках</span>
+                <span class="font-semibold portrait:text-sm">Правильных ответов</span>
+                <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">{{ correctAnswers }}</span>
+              <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ correctAnswers }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
         </li>
-        <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-            <Icon name="stopwatch" class="text-blue-600 size-5" />
+        <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4">
+          <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+            <Icon name="stopwatch" class="text-blue-600 size-5 portrait:size-4" />
           </div>
-          <div class="flex flex-grow flex-col gap-3">
-            <div class="flex justify-between gap-4 items-center w-full">
+          <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+            <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
               <div class="flex flex-col w-full">
-                <span class="font-semibold">Среднее время ответа</span>
-                <span class="text-muted-foreground text-base/4">в секундах</span>
+                <span class="font-semibold portrait:text-sm">Среднее время ответа</span>
+                <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в секундах</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">{{ averageAnswerTime }}</span>
+              <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ averageAnswerTime }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
         </li>
-        <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5 rounded-b-2xl">
-          <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-            <Icon name="flame" class="text-blue-600 size-5" />
+        <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4 rounded-b-2xl">
+          <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+            <Icon name="flame" class="text-blue-600 size-5 portrait:size-4" />
           </div>
-          <div class="flex flex-grow flex-col gap-3">
-            <div class="flex justify-between gap-4 items-center w-full">
+          <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+            <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
               <div class="flex flex-col w-full">
-                <span class="font-semibold">Максимальный стрик</span>
-                <span class="text-muted-foreground text-base/4 pb-1">в днях</span>
+                <span class="font-semibold portrait:text-sm">Максимальный стрик</span>
+                <span class="text-muted-foreground text-base/4 portrait:text-sm/4 pb-1">в днях</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">{{ maxStreak }}</span>
+              <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ maxStreak }}</span>
             </div>
           </div>
         </li>

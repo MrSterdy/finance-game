@@ -254,7 +254,7 @@ const timerColors = computed(() => {
 // Проверка правильности ответа для стилизации
 const getAnswerClass = (answerIndex: number) => {
   if (!showAnswer.value || selectedAnswerIndex.value === null || !currentQuestion.value) {
-    return 'text-center bg-white items-center rounded-2xl p-7 font-medium font-xl cursor-pointer hover:bg-gray-50 transition-colors'
+    return 'text-center bg-white items-center rounded-2xl p-7 portrait:p-4 font-medium font-xl portrait:text-base cursor-pointer hover:bg-gray-50 transition-colors'
   }
   
   const isCorrectAnswer = currentQuestion.value.question.options.correctEntryIndex === answerIndex
@@ -262,15 +262,15 @@ const getAnswerClass = (answerIndex: number) => {
   
   if (isSelectedAnswer) {
     if (isCorrectAnswer) {
-      return 'text-center bg-green-300/35 text-green-600 items-center rounded-2xl p-7 font-medium font-xl relative'
+      return 'text-center bg-green-300/35 text-green-600 items-center rounded-2xl p-7 portrait:p-4 font-medium font-xl portrait:text-base relative'
     } else {
-      return 'text-center bg-red-300/35 text-red-600 items-center rounded-2xl p-7 font-medium font-xl relative'
+      return 'text-center bg-red-300/35 text-red-600 items-center rounded-2xl p-7 portrait:p-4 font-medium font-xl portrait:text-base relative'
     }
   } else if (isCorrectAnswer && showAnswer.value) {
-    return 'text-center bg-green-300/35 text-green-600 items-center rounded-2xl p-7 font-medium font-xl relative'
+    return 'text-center bg-green-300/35 text-green-600 items-center rounded-2xl p-7 portrait:p-4 font-medium font-xl portrait:text-base relative'
   }
   
-  return 'text-center bg-white items-center rounded-2xl p-7 font-medium font-xl opacity-50'
+  return 'text-center bg-white items-center rounded-2xl p-7 portrait:p-4 font-medium font-xl portrait:text-base opacity-50'
 }
 
 // Показ иконки для ответа
@@ -302,18 +302,18 @@ const getAnswerIcon = (answerIndex: number) => {
 
 <template>
   <div class="flex min-h-dvh transition-colors duration-500 ease-in-out bg-stone-100" v-if="session && currentQuestion">
-    <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden">
-      <header class="grid grid-cols-3 gap-1 py-4 p-4 items-center">
+    <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden portrait:max-w-full portrait:px-0">
+      <header class="grid grid-cols-3 gap-1 py-4 p-4 portrait:py-3 portrait:px-6 items-center">
         <RouterLink class="text-muted-foreground" :to="{ name: 'start-screen' }">
-          <Icon name="arrow-left" />
+          <Icon name="arrow-left" class="portrait:w-5 portrait:h-5" />
         </RouterLink>
-        <h1 class="font-semibold text-xl text-center">День {{ currentDay }}</h1>
+        <h1 class="font-semibold text-xl portrait:text-lg text-center">День {{ currentDay }}</h1>
       </header>
 
-      <div class="pt-2 flex flex-col px-4">
-        <div class="m-auto flex gap-2">
-          <Badge class="px-5 py-1 text-xl font-semibold rounded-xl">
-            <div class="relative h-6 w-6 overflow-hidden">
+      <div class="pt-2 portrait:pt-1 flex flex-col px-4 portrait:px-6">
+        <div class="m-auto flex gap-2 portrait:gap-1.5">
+          <Badge class="px-5 portrait:px-3 py-1 text-xl portrait:text-lg font-semibold rounded-xl">
+            <div class="relative h-6 portrait:h-5 w-6 portrait:w-5 overflow-hidden">
               <Motion
                 :key="currentQuestion.character.avatarUrl"
                 tag="div"
@@ -331,7 +331,7 @@ const getAnswerIcon = (answerIndex: number) => {
                 <img 
                   :src="currentQuestion.character.avatarUrl" 
                   :alt="currentQuestion.character.name" 
-                  class="h-6 object-contain"
+                  class="h-6 portrait:h-5 object-contain"
                 />
               </Motion>
             </div>
@@ -350,8 +350,8 @@ const getAnswerIcon = (answerIndex: number) => {
               <span>/{{ session.items.length }}</span>
             </div>
           </Badge>
-          <Badge class="px-5 text-xl font-semibold rounded-xl">
-            <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6">
+          <Badge class="px-5 portrait:px-3 text-xl portrait:text-lg font-semibold rounded-xl">
+            <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6 portrait:w-5">
             <CountUp 
               :key="animatedScore"
               :from="previousScore"
@@ -362,7 +362,7 @@ const getAnswerIcon = (answerIndex: number) => {
         </div>
       </div>
 
-      <section class="px-4 pt-12 pb-4 flex flex-col gap-4 flex-grow justify-between relative isolate">
+      <section class="px-4 portrait:px-6 pt-12 portrait:pt-6 pb-4 portrait:pb-2 flex flex-col gap-4 portrait:gap-3 flex-grow justify-between relative isolate">
         <!-- Невидимый overlay для перехвата событий свайпа -->
         <div
           v-if="showAnswer"
@@ -378,7 +378,7 @@ const getAnswerIcon = (answerIndex: number) => {
             <Motion
               :key="cardKey"
               tag="div"
-              class="flex flex-col gap-8 p-6 h-full bg-white rounded-2xl touch-none relative z-50 pointer-events-none"
+              class="flex flex-col gap-8 portrait:gap-4 p-6 portrait:p-4 h-full bg-white rounded-2xl touch-none relative z-50 pointer-events-none"
               :initial="{ scale: 0.8, opacity: 0 }"
               :animate="{ 
                 scale: 1, 
@@ -394,11 +394,11 @@ const getAnswerIcon = (answerIndex: number) => {
                 mass: 0.7
               }"
             >
-              <div class="flex items-center justify-between relative z-[60] gap-8">
+              <div class="flex items-center justify-between relative z-[60] gap-8 portrait:gap-4">
                 <Badge
-                :class="`${timerColors.badgeClass} px-3 text-base font-semibold rounded-lg transition-colors`"
+                :class="`${timerColors.badgeClass} px-3 portrait:px-2 text-base portrait:text-sm font-semibold rounded-lg transition-colors`"
               >
-                  <Icon name="clock" class="!size-4" />
+                  <Icon name="clock" class="!size-4 portrait:!size-3" />
                     <TimerCounter :timeInSeconds="timeLeft" :fontSize="16" :fontWeight="600" />
                 </Badge>
                  <Popover v-if="showAnswer">
@@ -415,43 +415,43 @@ const getAnswerIcon = (answerIndex: number) => {
                          mass: 0.3
                        }"
                      >
-                       <Badge variant="secondary" class="glare text-muted-foreground px-3 text-base font-semibold rounded-lg cursor-pointer hover:bg-secondary/80 transition-colors">
+                       <Badge variant="secondary" class="glare text-muted-foreground px-3 portrait:px-2 text-base portrait:text-sm font-semibold rounded-lg cursor-pointer hover:bg-secondary/80 transition-colors">
                          <span>Объяснение</span>
-                         <Icon name="info" class="!size-4" />
+                         <Icon name="info" class="!size-4 portrait:!size-3" />
                        </Badge>
                      </Motion>
                    </PopoverTrigger>
-                  <PopoverContent class="relative bg-foreground text-background border-none shadow-none px-3 pt-2 pb-3 flex flex-col gap-3 rounded-[12px] w-80" :side-offset="12" align="end" side="bottom">
+                  <PopoverContent class="relative bg-foreground text-background border-none shadow-none px-3 pt-2 pb-3 flex flex-col gap-3 rounded-[12px] w-80 portrait:w-72" :side-offset="12" align="end" side="bottom">
                     <Icon name="arrow-up" class="text-foreground absolute -top-2 right-3" />
-                    <p v-for="(paragraph, index) in currentQuestion.question.options.explanation.paragraphs" :key="index">
+                    <p v-for="(paragraph, index) in currentQuestion.question.options.explanation.paragraphs" :key="index" class="portrait:text-sm">
                       {{ paragraph }}
                     </p>
-                    <a v-for="(link, index) in currentQuestion.question.options.explanation.links" :key="index" :href="link.url" target="_blank" class="text-blue-600">
+                    <a v-for="(link, index) in currentQuestion.question.options.explanation.links" :key="index" :href="link.url" target="_blank" class="text-blue-600 portrait:text-sm">
                       {{ link.content }}
                     </a>
-                    <Button v-for="(button, index) in currentQuestion.question.options.explanation.buttons" :key="index" variant="secondary" class="h-auto justify-start text-start gap-4" asChild>
+                    <Button v-for="(button, index) in currentQuestion.question.options.explanation.buttons" :key="index" variant="secondary" class="h-auto justify-start text-start gap-4 portrait:gap-3" asChild>
                       <a :href="button.url" target="_blank">
-                        <Icon :name="button.icon as any" class="text-blue-600 flex-shrink-0 size-6" />
+                        <Icon :name="button.icon as any" class="text-blue-600 flex-shrink-0 size-6 portrait:size-5" />
                         <div class="flex flex-col text-wrap">
-                          <span class="text-base font-semibold">{{ button.title }}</span>
-                          <span class="text-muted-foreground text-sm">{{ button.description }}</span>
+                          <span class="text-base portrait:text-sm font-semibold">{{ button.title }}</span>
+                          <span class="text-muted-foreground text-sm portrait:text-xs">{{ button.description }}</span>
                         </div>
                       </a>
                     </Button>
                   </PopoverContent>
                 </Popover>
               </div>
-              <div class="flex flex-col gap-4">
-                <img :src="currentQuestion.character.avatarUrl" :alt="currentQuestion.character.name" class="h-24 m-auto">
-                <h2 class="text-xl text-center font-bold mt-2">{{ currentQuestion.character.name }}</h2>
-                <div class="text-center text-lg font-medium text-stone-400 leading-6">
+              <div class="flex flex-col gap-4 portrait:gap-3">
+                <img :src="currentQuestion.character.avatarUrl" :alt="currentQuestion.character.name" class="h-24 portrait:h-16 m-auto">
+                <h2 class="text-xl portrait:text-lg text-center font-bold mt-2 portrait:mt-1">{{ currentQuestion.character.name }}</h2>
+                <div class="text-center text-lg portrait:text-base font-medium text-stone-400 leading-6 portrait:leading-5">
                   {{ currentQuestion.question.question }}
                 </div>
               </div>
             </Motion>
           </div>
 
-          <div class="grid grid-cols-2 gap-2 mt-2">
+          <div class="grid grid-cols-2 gap-2 portrait:gap-1.5 mt-2 portrait:mt-1">
             <button 
               v-for="(option, index) in currentQuestion.question.options.entries"
               :key="index"
@@ -463,13 +463,13 @@ const getAnswerIcon = (answerIndex: number) => {
               <Icon 
                 v-if="showAnswerIcon(index) && getAnswerIcon(index) === 'cross'"
                 name="cross-circle"
-                class="w-5 absolute -right-1 -top-1"
+                class="w-5 portrait:w-4 absolute -right-1 -top-1"
               />
               
               <Icon 
                 v-if="showAnswerIcon(index) && getAnswerIcon(index) === 'check'"
                 name="check-circle"
-                class="w-5 absolute -right-1 -top-1"
+                class="w-5 portrait:w-4 absolute -right-1 -top-1"
               />
               
               {{ option }}
@@ -481,7 +481,7 @@ const getAnswerIcon = (answerIndex: number) => {
         <Motion
           v-if="showAnswer"
           tag="div"
-          class="grid place-items-center flex-grow relative z-20 animate-pulse"
+          class="grid place-items-center flex-grow relative z-20 animate-pulse portrait:pt-2"
           :initial="{ scale: 0, opacity: 0 }"
           :animate="{ scale: 1, opacity: 1 }"
           :transition="{ 
@@ -491,8 +491,8 @@ const getAnswerIcon = (answerIndex: number) => {
             mass: 0.3
           }"
         >
-          <div class="flex items-center justify-center flex-col gap-2 text-muted-foreground text-sm">
-            <Icon name="finger-touch" class="size-6" />
+          <div class="flex items-center justify-center flex-col gap-2 portrait:gap-1 text-muted-foreground text-sm portrait:text-xs">
+            <Icon name="finger-touch" class="size-6 portrait:size-5" />
             <span>Смахни вправо/влево к следующему вопросу</span>
           </div>
         </Motion>
@@ -507,68 +507,68 @@ const getAnswerIcon = (answerIndex: number) => {
       leave-from-class="translate-y-0"
       leave-to-class="translate-y-full"
     >
-      <section v-if="showResults" class="mx-auto max-w-screen-md w-full left-0 right-0 flex flex-col justify-between min-h-dvh p-4 bg-stone-100 overflow-hidden fixed z-50">
+      <section v-if="showResults" class="mx-auto max-w-screen-md portrait:max-w-full w-full left-0 right-0 flex flex-col justify-between min-h-dvh p-4 portrait:p-6 bg-stone-100 overflow-hidden fixed z-50">
       <div v-if="windowHeight" v-confetti="{ stageHeight: windowHeight }" class="!fixed top-0 mx-auto left-0 right-0"></div>
       <div class="grid place-items-center flex-grow">
-        <div class="flex flex-col gap-8 w-full">
-          <div class="flex flex-col gap-5 justify-center">
-            <p class="inline-flex items-center gap-2 font-semibold text-5xl self-center">
+        <div class="flex flex-col gap-8 portrait:gap-6 w-full">
+          <div class="flex flex-col gap-5 portrait:gap-4 justify-center">
+            <p class="inline-flex items-center gap-2 font-semibold text-5xl portrait:text-4xl self-center">
               <span>+{{ userScore }}</span>
-              <img :src="CoinMiscellaneousSrc" alt="coin" class="w-12">
+              <img :src="CoinMiscellaneousSrc" alt="coin" class="w-12 portrait:w-10">
             </p>
-            <p class="text-center text-3xl font-semibold">
+            <p class="text-center text-3xl portrait:text-2xl font-semibold">
               {{ correctAnswers >= 4 ? 'Отличный результат!' : correctAnswers >= 2 ? 'Хороший результат!' : 'Попробуйте еще раз!' }}
             </p>
           </div>
           <ul class="flex flex-col w-full">
-            <li class="flex items-start gap-4 bg-background py-2 pl-2 pr-5 rounded-t-2xl">
-              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-                <Icon name="thumbs-up" class="text-blue-600 size-5" />
+            <li class="flex items-start gap-4 portrait:gap-3 bg-background py-2 pl-2 pr-5 portrait:pr-4 rounded-t-2xl">
+              <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+                <Icon name="thumbs-up" class="text-blue-600 size-5 portrait:size-4" />
               </div>
-              <div class="flex flex-grow flex-col gap-3">
-                <div class="flex justify-between gap-4 items-center w-full">
+              <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+                <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
                   <div class="flex flex-col w-full">
-                    <span class="font-semibold">Правильных ответов</span>
-                    <span class="text-muted-foreground text-base/4">в штуках</span>
+                    <span class="font-semibold portrait:text-sm">Правильных ответов</span>
+                    <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в штуках</span>
                   </div>
-                  <span class="mt-3 text-xl font-semibold">{{ correctAnswers }}</span>
+                  <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ correctAnswers }}</span>
                 </div>
                 <Separator class="!w-[calc(100%+4px)] -ml-1" />
               </div>
             </li>
-            <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5">
-              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-                <Icon name="thumbs-down" class="text-blue-600 size-5" />
+            <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4">
+              <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+                <Icon name="thumbs-down" class="text-blue-600 size-5 portrait:size-4" />
               </div>
-              <div class="flex flex-grow flex-col gap-3">
-                <div class="flex justify-between gap-4 items-center w-full">
+              <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+                <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
                   <div class="flex flex-col w-full">
-                    <span class="font-semibold">Неправильных ответов</span>
-                    <span class="text-muted-foreground text-base/4">в штуках</span>
+                    <span class="font-semibold portrait:text-sm">Неправильных ответов</span>
+                    <span class="text-muted-foreground text-base/4 portrait:text-sm/4">в штуках</span>
                   </div>
-                  <span class="mt-3 text-xl font-semibold">{{ incorrectAnswers }}</span>
+                  <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ incorrectAnswers }}</span>
                 </div>
                 <Separator class="!w-[calc(100%+4px)] -ml-1" />
               </div>
             </li>
-            <li class="flex items-start gap-4 bg-background pb-2 pl-2 pr-5 rounded-b-2xl">
-              <div class="bg-blue-200 rounded-lg px-3.5 py-3">
-                <Icon name="stopwatch" class="text-blue-600 size-5" />
+            <li class="flex items-start gap-4 portrait:gap-3 bg-background pb-2 pl-2 pr-5 portrait:pr-4 rounded-b-2xl">
+              <div class="bg-blue-200 rounded-lg px-3.5 portrait:px-3 py-3 portrait:py-2.5">
+                <Icon name="stopwatch" class="text-blue-600 size-5 portrait:size-4" />
               </div>
-              <div class="flex flex-grow flex-col gap-3">
-                <div class="flex justify-between gap-4 items-center w-full">
+              <div class="flex flex-grow flex-col gap-3 portrait:gap-2">
+                <div class="flex justify-between gap-4 portrait:gap-3 items-center w-full">
                   <div class="flex flex-col w-full">
-                    <span class="font-semibold">Среднее время ответа</span>
-                    <span class="text-muted-foreground text-base/4 pb-1">в секундах</span>
+                    <span class="font-semibold portrait:text-sm">Среднее время ответа</span>
+                    <span class="text-muted-foreground text-base/4 portrait:text-sm/4 pb-1">в секундах</span>
                   </div>
-                  <span class="mt-3 text-xl font-semibold">{{ averageAnswerTime }}</span>
+                  <span class="mt-3 portrait:mt-2 text-xl portrait:text-lg font-semibold">{{ averageAnswerTime }}</span>
                 </div>
               </div>
             </li>
           </ul>
         </div>
       </div>
-      <Button size="lg" asChild>
+      <Button size="lg" class="portrait:text-sm" asChild>
         <RouterLink :to="{ name: 'start-screen' }">
           На главный экран
         </RouterLink>
@@ -579,9 +579,9 @@ const getAnswerIcon = (answerIndex: number) => {
   
   <!-- Загрузка -->
   <div v-else class="flex min-h-dvh items-center justify-center bg-stone-100">
-    <div class="text-center">
-      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-      <p class="text-lg font-medium text-stone-600">Подготовка квиза...</p>
+    <div class="text-center portrait:px-6">
+      <div class="animate-spin rounded-full h-16 portrait:h-12 w-16 portrait:w-12 border-b-2 border-blue-600 mx-auto mb-4 portrait:mb-3"></div>
+      <p class="text-lg portrait:text-base font-medium text-stone-600">Подготовка квиза...</p>
     </div>
   </div>
 </template>

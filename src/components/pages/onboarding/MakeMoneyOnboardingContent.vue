@@ -19,38 +19,38 @@ const handleNext = () => {
 
 <template>
     <div class="h-full flex flex-col">
-        <!-- Секция с анимированными призами -->
-        <section class="pt-38 pb-34 flex flex-col px-4">
-            <!-- Список призов с монетами (анимируется с задержками) -->
-            <ul class="flex gap-3">
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-1">
+        <!-- Секция с анимированными призами - адаптивная -->
+        <section class="pt-20 sm:pt-38 pb-20 sm:pb-34 flex flex-col px-4 portrait:pt-8 portrait:pb-8 portrait:flex-grow portrait:justify-center">
+            <!-- Список призов с монетами (анимируется с задержками) - адаптивные размеры -->
+            <ul class="flex gap-3 portrait:gap-2 portrait:grid portrait:grid-cols-3 portrait:max-w-xs portrait:mx-auto portrait:justify-items-center">
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-1">
                     <!-- Изображение подарка -->
-                    <img :src="GiftSrc" alt="Подарок" class="h-16">
+                    <img :src="GiftSrc" alt="Подарок" class="h-16 portrait:h-12">
                     <!-- Количество монет за приз -->
-                    <p class="font-semibold text-2xl inline-flex items-center gap-2">
-                        <img :src="CoinSrc" alt="Монета" class="h-6" />
+                    <p class="font-semibold text-2xl portrait:text-lg inline-flex items-center gap-2">
+                        <img :src="CoinSrc" alt="Монета" class="h-6 portrait:h-5" />
                         {{ ' ' }}
                         5
                     </p>
                 </li>
                 <!-- Призы с возрастающей стоимостью и анимациями -->
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-2">
-                    <img :src="GiftSrc" alt="Подарок" class="h-16">
-                    <p class="font-semibold text-2xl inline-flex items-center gap-2">
-                        <img :src="CoinSrc" alt="Монета" class="h-6" />
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-2">
+                    <img :src="GiftSrc" alt="Подарок" class="h-16 portrait:h-12">
+                    <p class="font-semibold text-2xl portrait:text-lg inline-flex items-center gap-2">
+                        <img :src="CoinSrc" alt="Монета" class="h-6 portrait:h-5" />
                         {{ ' ' }}
                         20
                     </p>
                 </li>
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-3">
-                    <img :src="GiftSrc" alt="Подарок" class="h-16">
-                    <p class="font-semibold text-2xl inline-flex items-center gap-2">
-                        <img :src="CoinSrc" alt="Монета" class="h-6" />
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-3">
+                    <img :src="GiftSrc" alt="Подарок" class="h-16 portrait:h-12">
+                    <p class="font-semibold text-2xl portrait:text-lg inline-flex items-center gap-2">
+                        <img :src="CoinSrc" alt="Монета" class="h-6 portrait:h-5" />
                         {{ ' ' }}
                         75
                     </p>
                 </li>
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-4">
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-4 portrait:hidden">
                     <img :src="GiftSrc" alt="Подарок" class="h-16">
                     <p class="font-semibold text-2xl inline-flex items-center gap-2">
                         <img :src="CoinSrc" alt="Монета" class="h-6" />
@@ -58,7 +58,7 @@ const handleNext = () => {
                         100
                     </p>
                 </li>
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-5">
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-5 portrait:hidden">
                     <img :src="GiftSrc" alt="Подарок" class="h-16">
                     <p class="font-semibold text-2xl inline-flex items-center gap-2">
                         <img :src="CoinSrc" alt="Монета" class="h-6" />
@@ -66,7 +66,7 @@ const handleNext = () => {
                         125
                     </p>
                 </li>
-                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 pt-5 pb-2 items-center flex-shrink-0 animate-gift-6">
+                <li class="bg-background rounded-2xl flex flex-col gap-4 px-7 portrait:px-4 pt-5 portrait:pt-3 pb-2 items-center flex-shrink-0 animate-gift-6 portrait:hidden">
                     <img :src="GiftSrc" alt="Подарок" class="h-16">
                     <p class="font-semibold text-2xl inline-flex items-center gap-2">
                         <img :src="CoinSrc" alt="Монета" class="h-6" />
@@ -80,14 +80,14 @@ const handleNext = () => {
         <div class="h-5"></div>
         
         <!-- Секция с описанием и кнопкой -->
-        <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between">
+        <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between portrait:px-6 portrait:pb-6">
             <!-- Основная информация о системе наград -->
             <div class="flex flex-col gap-3">
-                <h1 class="font-semibold text-3xl">Зарабатывайте монеты и тратьте их на призы</h1>
-                <p>За каждый правильный ответ вы получаете монеты, которые можно потратить на мерч, новую категорию кэшбека и многое другое</p>
+                <h1 class="font-semibold text-3xl portrait:text-2xl">Зарабатывайте монеты и тратьте их на призы</h1>
+                <p class="portrait:text-sm">За каждый правильный ответ вы получаете монеты, которые можно потратить на мерч, новую категорию кэшбека и многое другое</p>
             </div>
             <!-- Кнопка для перехода к следующему шагу -->
-            <Button size="lg" class="text-base" @click="handleNext">Далее</Button>
+            <Button size="lg" class="text-base portrait:text-sm" @click="handleNext">Далее</Button>
         </section>
     </div>
 </template>

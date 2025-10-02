@@ -20,11 +20,11 @@ const handleNext = () => {
 
 <template>
     <div class="h-full flex flex-col">
-        <!-- Секция с мокапом телефона -->
-        <section class="pt-15 flex flex-col px-4">
+        <!-- Секция с мокапом телефона - адаптивная высота -->
+        <section class="pt-8 sm:pt-15 flex flex-col px-4 portrait:pt-4 portrait:flex-grow portrait:justify-center">
             <div class="flex justify-center">
-                <!-- Контейнер мокапа телефона -->
-                <div class="rounded-t-3xl w-full max-w-56 relative bg-background/80 text-foreground">
+                <!-- Контейнер мокапа телефона с адаптивной шириной -->
+                <div class="rounded-t-3xl w-full max-w-56 portrait:max-w-48 relative bg-background/80 text-foreground">
                     <!-- Статус бар телефона -->
                     <header class="p-4 font-sf-pro-display font-semibold text-xs flex justify-between items-center">
                         <!-- Время -->
@@ -48,7 +48,7 @@ const handleNext = () => {
                         </div>
                     </header>
                     <!-- Диалоговое окно с персонажем (анимируется) -->
-                    <div class="rounded-2xl bg-background max-w-56 aspect-square p-4 flex flex-col relative left-6 shadow-xl animate-fox-container">
+                    <div class="rounded-2xl bg-background max-w-56 portrait:max-w-48 aspect-square p-4 portrait:p-3 flex flex-col relative left-6 portrait:left-4 shadow-xl animate-fox-container">
                         <!-- Таймер вопроса -->
                         <Badge class="rounded-sm">
                             <Clock3 />
@@ -58,19 +58,19 @@ const handleNext = () => {
                         <div class="pt-4 flex flex-col gap-2 items-center text-center">
                             <!-- Персонаж и его имя -->
                             <div class="flex flex-col items-center text-center gap-2">
-                                <img :src="FoxCharacterSrc" alt="Лиса" class="w-16">
-                                <p class="font-bold">Лиса</p>
+                                <img :src="FoxCharacterSrc" alt="Лиса" class="w-16 portrait:w-12">
+                                <p class="font-bold portrait:text-sm">Лиса</p>
                             </div>
                             <!-- Вопрос персонажа -->
-                            <p class="text-sm text-muted-foreground">Я заработала 10 000₽. Сколько у меня останется после уплаты налогов для физ. лиц?</p>
+                            <p class="text-sm portrait:text-xs text-muted-foreground">Я заработала 10 000₽. Сколько у меня останется после уплаты налогов для физ. лиц?</p>
                         </div>
                     </div>
                     <!-- Варианты ответов (анимируются с задержкой) -->
                     <div class="pt-2 grid grid-cols-2 gap-1.5 px-2 pb-2">
-                        <Button class="shadow-none rounded-xl bg-background text-foreground hover:bg-background/80 text-xs h-12 animate-button-1">
+                        <Button class="shadow-none rounded-xl bg-background text-foreground hover:bg-background/80 text-xs portrait:text-[10px] h-12 portrait:h-10 animate-button-1">
                             4 550₽
                         </Button>
-                        <Button class="shadow-none rounded-xl bg-background text-foreground hover:bg-background/80 text-xs h-12 animate-button-2">
+                        <Button class="shadow-none rounded-xl bg-background text-foreground hover:bg-background/80 text-xs portrait:text-[10px] h-12 portrait:h-10 animate-button-2">
                             8 700₽
                         </Button>
                     </div>
@@ -80,14 +80,14 @@ const handleNext = () => {
         <!-- Декоративный разделитель с тенью -->
         <div class="h-5 shadow-[0_-10px_20px_0_rgba(0,0,0,0.05)]"></div>
         <!-- Секция с описанием и кнопкой -->
-        <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between">
+        <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between portrait:px-6 portrait:pb-6">
             <!-- Основная информация -->
             <div class="flex flex-col gap-3">
-                <h1 class="font-semibold text-3xl">Помогите зверям изучить фин. грамотность</h1>
-                <p>Проверьте свои знания в области финансов и постарайтесь помочь всем животным с их финансовыми вопросами в формате увлекательной мини-игры</p>
+                <h1 class="font-semibold text-3xl portrait:text-2xl">Помогите зверям изучить фин. грамотность</h1>
+                <p class="portrait:text-sm">Проверьте свои знания в области финансов и постарайтесь помочь всем животным с их финансовыми вопросами в формате увлекательной мини-игры</p>
             </div>
             <!-- Кнопка для перехода к следующему шагу -->
-            <Button size="lg" class="text-base" @click="handleNext">Далее</Button>
+            <Button size="lg" class="text-base portrait:text-sm" @click="handleNext">Далее</Button>
         </section>
     </div>
 </template>

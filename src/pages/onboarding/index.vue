@@ -69,8 +69,8 @@ const currentComponent = computed(() => {
       class="flex min-h-dvh transition-colors duration-500 ease-in-out"
       :style="{ backgroundColor: currentBackgroundColor }"
     >
-        <!-- Основная область контента с ограниченной шириной -->
-        <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden">
+        <!-- Основная область контента с ограниченной шириной и адаптивностью для вертикальных устройств -->
+        <main class="mx-auto max-w-screen-md flex-grow flex flex-col overflow-hidden portrait:max-w-full portrait:px-0">
             <!-- Шапка с индикаторами прогресса для каждого шага -->
             <header class="grid grid-cols-3 gap-1 p-4">
                 <Progress 

@@ -203,4 +203,43 @@
       left: 150%;
     }
   }
+
+  /* Дополнительные стили для портретной ориентации */
+  @media (orientation: portrait) {
+
+    /* Обеспечиваем лучшее использование вертикального пространства */
+    .portrait-flex-center {
+      @apply flex items-center justify-center min-h-[50vh];
+    }
+
+    /* Адаптивные размеры для мобильных портретных устройств */
+    .portrait-text-adaptive {
+      @apply text-sm leading-relaxed;
+    }
+
+    /* Компактные отступы для портретной ориентации */
+    .portrait-compact-spacing {
+      @apply py-2 px-4;
+    }
+
+    /* Улучшенная видимость кнопок на узких экранах */
+    .portrait-button-enhanced {
+      @apply min-h-[48px] text-base font-medium;
+    }
+  }
+
+  /* Дополнительные стили для очень узких экранов (менее 375px) */
+  @media (max-width: 374px) and (orientation: portrait) {
+    .ultra-narrow-text {
+      @apply text-xs;
+    }
+
+    .ultra-narrow-spacing {
+      @apply py-1 px-2;
+    }
+
+    .ultra-narrow-button {
+      @apply text-sm min-h-[44px];
+    }
+  }
 }

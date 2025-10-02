@@ -18,55 +18,55 @@ const handleNext = () => {
 
 <template>
   <div class="h-full flex flex-col">
-    <!-- Большой отступ сверху для визуального баланса -->
-    <div class="pt-38 pb-4 px-6 grid place-items-center">
+    <!-- Адаптивный отступ для календаря -->
+    <div class="pt-20 sm:pt-38 pb-4 px-6 portrait:pt-8 portrait:pb-2 portrait:flex-grow portrait:flex portrait:items-center portrait:justify-center">
       <!-- Календарь стрика с анимациями -->
-      <div class="rounded-2xl p-6 w-full flex flex-col gap-6 bg-white animate-calendar-container">
+      <div class="rounded-2xl p-6 portrait:p-4 w-full flex flex-col gap-6 portrait:gap-4 bg-white animate-calendar-container">
         <!-- Центральная информация о стрике (анимируется) -->
         <div class="self-center flex flex-col gap-1 items-center text-center animate-streak-info">
-          <Icon name="flame-gradient" class="size-8" />
-          <span class="text-[#FA721A] font-bold text-6xl">5</span>
-          <span class="font-semibold text-3xl text-[#FA721A] -mt-2">дней</span>
+          <Icon name="flame-gradient" class="size-8 portrait:size-6" />
+          <span class="text-[#FA721A] font-bold text-6xl portrait:text-4xl">5</span>
+          <span class="font-semibold text-3xl portrait:text-xl text-[#FA721A] -mt-2 portrait:-mt-1">дней</span>
         </div>
         <!-- Сетка дней недели с индивидуальными анимациями -->
-        <ul class="grid grid-cols-7 gap-4">
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-1">
-            <span class="uppercase font-semibold text-lg text-[#FA721A]">Пн</span>
-            <div class="rounded-full size-7 grid place-items-center bg-[#FA721A]">
-              <Icon name="check" class="w-4 text-white" />
+        <ul class="grid grid-cols-7 gap-4 portrait:gap-2">
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-1">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-[#FA721A]">Пн</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-[#FA721A]">
+              <Icon name="check" class="w-4 portrait:w-3 text-white" />
             </div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-2">
-            <span class="uppercase font-semibold text-lg text-[#FA721A]">Вт</span>
-            <div class="rounded-full size-7 grid place-items-center bg-[#FA721A]">
-              <Icon name="check" class="w-4 text-white" />
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-2">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-[#FA721A]">Вт</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-[#FA721A]">
+              <Icon name="check" class="w-4 portrait:w-3 text-white" />
             </div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-3">
-            <span class="uppercase font-semibold text-lg text-[#FA721A]">Ср</span>
-            <div class="rounded-full size-7 grid place-items-center bg-[#FA721A]">
-              <Icon name="check" class="w-4 text-white" />
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-3">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-[#FA721A]">Ср</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-[#FA721A]">
+              <Icon name="check" class="w-4 portrait:w-3 text-white" />
             </div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-4">
-            <span class="uppercase font-semibold text-lg text-[#FA721A]">Чт</span>
-            <div class="rounded-full size-7 grid place-items-center bg-[#FA721A]">
-              <Icon name="check" class="w-4 text-white" />
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-4">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-[#FA721A]">Чт</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-[#FA721A]">
+              <Icon name="check" class="w-4 portrait:w-3 text-white" />
             </div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-5">
-            <span class="uppercase font-semibold text-lg text-[#FA721A]">Пт</span>
-            <div class="rounded-full size-7 grid place-items-center bg-[#FA721A]">
-              <Icon name="check" class="w-4 text-white" />
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-5">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-[#FA721A]">Пт</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-[#FA721A]">
+              <Icon name="check" class="w-4 portrait:w-3 text-white" />
             </div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-6">
-            <span class="uppercase font-semibold text-lg text-muted-foreground">Сб</span>
-            <div class="rounded-full size-7 grid place-items-center bg-stone-300"></div>
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-6">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-muted-foreground">Сб</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-stone-300"></div>
           </li>
-          <li class="flex flex-col items-center justify-center gap-2 animate-day-7">
-            <span class="uppercase font-semibold text-lg text-muted-foreground">Вс</span>
-            <div class="rounded-full size-7 grid place-items-center bg-stone-300"></div>
+          <li class="flex flex-col items-center justify-center gap-2 portrait:gap-1 animate-day-7">
+            <span class="uppercase font-semibold text-lg portrait:text-sm text-muted-foreground">Вс</span>
+            <div class="rounded-full size-7 portrait:size-5 grid place-items-center bg-stone-300"></div>
           </li>
         </ul>
       </div>
@@ -76,14 +76,14 @@ const handleNext = () => {
     <div class="h-5"></div>
     
     <!-- Секция с финальным сообщением онбординга -->
-    <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between">
+    <section class="px-4 pt-3 pb-4 flex flex-col gap-4 flex-grow justify-between portrait:px-6 portrait:pb-6">
         <!-- Заключительная информация о важности постоянного прогресса -->
         <div class="flex flex-col gap-3">
-            <h1 class="font-semibold text-3xl">Не теряйте достигнутого прогресса</h1>
-            <p>Заходите в игру каждый день, чтобы получать дополнительные монеты и открыть новые призы</p>
+            <h1 class="font-semibold text-3xl portrait:text-2xl">Не теряйте достигнутого прогресса</h1>
+            <p class="portrait:text-sm">Заходите в игру каждый день, чтобы получать дополнительные монеты и открыть новые призы</p>
         </div>
         <!-- Финальная кнопка для начала игры -->
-        <Button size="lg" class="text-base" @click="handleNext">Начать игру</Button>
+        <Button size="lg" class="text-base portrait:text-sm" @click="handleNext">Начать игру</Button>
     </section>
   </div>
 </template>
