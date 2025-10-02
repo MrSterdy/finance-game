@@ -105,13 +105,11 @@ const balance = computed(() => profile.value.balance)
           <img :src="GiftMiscellaneousSrc" alt="trophy" class="absolute -right-3 -bottom-7 w-20">
         </div>
 
-        <div class="bg-primary rounded-xl p-4 items-center">
-          <div class="text-white font-semibold text-xl flex gap-2 w-fit m-auto">
+        <div class="bg-primary rounded-xl p-4 flex flex-col flex-shrink-0">
+          <div class="text-white font-semibold text-xl flex gap-2">
             {{ balance }} <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6 object-contain">
           </div>
-          <div class="text-muted-foreground">
-            Баланс
-          </div>
+          <span class="text-muted-foreground">Баланс</span>
         </div>
       </section>
     </main>
