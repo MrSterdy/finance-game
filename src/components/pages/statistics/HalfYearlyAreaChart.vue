@@ -4,6 +4,17 @@ import { AreaChart } from '@/components/ui/chart-area'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/icon'
 
+interface MonthlyData {
+  name: string
+  value: number
+}
+
+interface Props {
+  yearlyData: Record<number, MonthlyData[]>
+}
+
+const props = defineProps<Props>()
+
 const currentYear = new Date().getFullYear()
 const currentMonth = new Date().getMonth() // 0-11
 const currentHalf = currentMonth < 6 ? 1 : 2 // 1 = первое полугодие, 2 = второе
@@ -11,54 +22,8 @@ const currentHalf = currentMonth < 6 ? 1 : 2 // 1 = первое полугод�
 const selectedYear = ref(currentYear)
 const selectedHalf = ref<1 | 2>(currentHalf)
 
-// Тестовые данные по месяцам для разных годов
-const yearlyData: Record<number, Array<{ name: string; value: number }>> = {
-  2023: [
-    { name: 'Янв', value: 45 },
-    { name: 'Фев', value: 52 },
-    { name: 'Мар', value: 48 },
-    { name: 'Апр', value: 61 },
-    { name: 'Май', value: 55 },
-    { name: 'Июн', value: 67 },
-    { name: 'Июл', value: 73 },
-    { name: 'Авг', value: 69 },
-    { name: 'Сен', value: 78 },
-    { name: 'Окт', value: 85 },
-    { name: 'Ноя', value: 92 },
-    { name: 'Дек', value: 88 },
-  ],
-  2024: [
-    { name: 'Янв', value: 95 },
-    { name: 'Фев', value: 103 },
-    { name: 'Мар', value: 110 },
-    { name: 'Апр', value: 105 },
-    { name: 'Май', value: 118 },
-    { name: 'Июн', value: 125 },
-    { name: 'Июл', value: 132 },
-    { name: 'Авг', value: 128 },
-    { name: 'Сен', value: 140 },
-    { name: 'Окт', value: 145 },
-    { name: 'Ноя', value: 150 },
-    { name: 'Дек', value: 155 },
-  ],
-  2025: [
-    { name: 'Янв', value: 160 },
-    { name: 'Фев', value: 165 },
-    { name: 'Мар', value: 172 },
-    { name: 'Апр', value: 168 },
-    { name: 'Май', value: 180 },
-    { name: 'Июн', value: 185 },
-    { name: 'Июл', value: 192 },
-    { name: 'Авг', value: 188 },
-    { name: 'Сен', value: 195 },
-    { name: 'Окт', value: 210 },
-    { name: 'Ноя', value: 0 },
-    { name: 'Дек', value: 0 },
-  ],
-}
-
 const chartData = computed(() => {
-  const yearData = yearlyData[selectedYear.value]
+  const yearData = props.yearlyData[selectedYear.value]
   if (!yearData) return []
   
   // Первое полугодие: месяцы 0-5 (Янв-Июн)

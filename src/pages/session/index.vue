@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { vConfetti } from '@neoconfetti/vue';
 import { Icon } from '@/components/ui/icon';
 import { Motion } from 'motion-v';
+import { updateGameStatistics } from '@/lib/storage/profile';
 
 const {
   session,
@@ -89,6 +90,20 @@ const handleNext = () => {
     // Увеличиваем ключ для анимации новой карточки
     cardKey.value++
   } else {
+    // Вычисляем среднее время ответа в секундах
+    const avgTime = answerTimes.value.length > 0
+      ? answerTimes.value.reduce((acc, time) => acc + time, 0) / answerTimes.value.length
+      : 0
+    
+    // Сохраняем статистику игры
+    updateGameStatistics(
+      userScore.value,
+      session.value.totalReward,
+      correctAnswers.value,
+      session.value.items.length,
+      avgTime
+    )
+    
     // Показываем экран результатов с анимацией
     showResults.value = true
   }
@@ -515,7 +530,7 @@ const getAnswerIcon = (answerIndex: number) => {
                     <span class="font-semibold">Среднее время ответа</span>
                     <span class="text-muted-foreground text-base/4 pb-1">в секундах</span>
                   </div>
-                  <span class="mt-3 text-xl font-semibold">{{ averageAnswerTime }}с</span>
+                  <span class="mt-3 text-xl font-semibold">{{ averageAnswerTime }}</span>
                 </div>
               </div>
             </li>

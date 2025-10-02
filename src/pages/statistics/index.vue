@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator"
 import CalendarHeatmap from "@/components/pages/statistics/CalendarHeatmap.vue"
 import WeeklyBarChart from "@/components/pages/statistics/WeeklyBarChart.vue"
 import HalfYearlyAreaChart from "@/components/pages/statistics/HalfYearlyAreaChart.vue"
+import { profile } from '@/lib/storage/profile'
+import { getLastWeekDates, getDayName, getMonthName, isInCurrentWeek, isInCurrentMonth } from '@/lib/utils/date'
 
 const activeBlock = ref<'week' | 'month' | 'allTime'>('week')
 const activeBlockLabel = computed(() => {
@@ -19,22 +21,132 @@ const activeBlockLabel = computed(() => {
   }
 })
 
-// Тестовые данные для календаря (формат: 'YYYY-MM-DD': количество_монет)
-const testCalendarData: Record<string, number> = {
-  '2025-10-01': 15,
-  '2025-10-02': 30,
-  '2025-10-03': 45,
-  '2025-10-04': 20,
-  '2025-10-05': 60,
-  '2025-10-12': 80,
-  '2025-10-13': 95,
-  '2025-10-14': 110,
-  '2025-10-15': 120,
-  '2025-10-16': 85,
-  '2025-10-17': 90,
-  '2025-10-18': 100,
-  '2025-10-19': 105,
-}
+// Фильтрованные игры в зависимости от периода
+const filteredGames = computed(() => {
+  const games = profile.value.statistics.gamesPlayed
+  
+  switch (activeBlock.value) {
+    case 'week':
+      return games.filter(game => isInCurrentWeek(game.date))
+    case 'month':
+      return games.filter(game => isInCurrentMonth(game.date))
+    case 'allTime':
+    default:
+      return games
+  }
+})
+
+// Данные для календаря (формат: 'YYYY-MM-DD': количество_монет)
+const calendarData = computed(() => {
+  const data: Record<string, number> = {}
+  profile.value.statistics.gamesPlayed.forEach(game => {
+    data[game.date] = game.score
+  })
+  return data
+})
+
+// Игр сыграно
+const gamesPlayed = computed(() => filteredGames.value.length)
+
+// Дано ответов (всего вопросов)
+const totalAnswers = computed(() => {
+  return filteredGames.value.reduce((sum, game) => sum + game.totalQuestions, 0)
+})
+
+// Правильных ответов
+const correctAnswers = computed(() => {
+  return filteredGames.value.reduce((sum, game) => sum + game.correctAnswers, 0)
+})
+
+// Среднее время ответа
+const averageAnswerTime = computed(() => {
+  if (filteredGames.value.length === 0) return '0.0'
+  const totalAvg = filteredGames.value.reduce((sum, game) => sum + game.averageAnswerTime, 0)
+  return (totalAvg / filteredGames.value.length).toFixed(1)
+})
+
+// Максимальный стрик (для периодов показываем количество дней с играми)
+const maxStreak = computed(() => {
+  if (activeBlock.value === 'allTime') {
+    return profile.value.statistics.maxStreak
+  }
+  
+  // Для недели и месяца считаем дни подряд в рамках периода
+  const games = filteredGames.value
+  if (games.length === 0) return 0
+  
+  // Сортируем игры по дате
+  const sortedDates = games.map(g => g.date).sort()
+  
+  let currentStreak = 1
+  let maxStreakInPeriod = 1
+  
+  for (let i = 1; i < sortedDates.length; i++) {
+    const prevDate = new Date(sortedDates[i - 1])
+    const currDate = new Date(sortedDates[i])
+    
+    // Вычисляем разницу в днях
+    const diffTime = currDate.getTime() - prevDate.getTime()
+    const diffDays = diffTime / (1000 * 60 * 60 * 24)
+    
+    if (diffDays === 1) {
+      currentStreak++
+      maxStreakInPeriod = Math.max(maxStreakInPeriod, currentStreak)
+    } else {
+      currentStreak = 1
+    }
+  }
+  
+  return maxStreakInPeriod
+})
+
+// Данные для недельного графика
+const weeklyChartData = computed(() => {
+  const weekDates = getLastWeekDates()
+  const gamesMap = new Map(
+    profile.value.statistics.gamesPlayed.map(game => [game.date, game.score])
+  )
+  
+  return weekDates.map(dateStr => {
+    const date = new Date(dateStr)
+    const dayName = getDayName(date.getDay())
+    const value = gamesMap.get(dateStr) || 0
+    
+    return { name: dayName, value }
+  })
+})
+
+// Данные для полугодового графика
+const yearlyChartData = computed(() => {
+  const data: Record<number, Array<{ name: string; value: number }>> = {}
+  
+  // Группируем игры по годам и месяцам
+  profile.value.statistics.gamesPlayed.forEach(game => {
+    const date = new Date(game.date)
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    
+    if (!data[year]) {
+      data[year] = Array.from({ length: 12 }, (_, i) => ({
+        name: getMonthName(i),
+        value: 0
+      }))
+    }
+    
+    data[year][month].value += game.score
+  })
+  
+  // Если нет данных, создаём пустой массив для текущего года
+  if (Object.keys(data).length === 0) {
+    const currentYear = new Date().getFullYear()
+    data[currentYear] = Array.from({ length: 12 }, (_, i) => ({
+      name: getMonthName(i),
+      value: 0
+    }))
+  }
+  
+  return data
+})
 
 function switchBlock(block: 'week' | 'month' | 'allTime') {
   activeBlock.value = block
@@ -82,12 +194,18 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
             <h3 class="font-semibold">Монет заработано</h3>
             <span class="text-muted-foreground text-sm">{{ activeBlockLabel }}</span>
           </div>
-          <WeeklyBarChart v-if="activeBlock === 'week'" />
+          <WeeklyBarChart 
+            v-if="activeBlock === 'week'"
+            :data="weeklyChartData"
+          />
           <CalendarHeatmap 
             v-if="activeBlock === 'month'"
-            :coins-data="testCalendarData"
+            :coins-data="calendarData"
           />
-          <HalfYearlyAreaChart v-if="activeBlock === 'allTime'" />
+          <HalfYearlyAreaChart 
+            v-if="activeBlock === 'allTime'"
+            :yearly-data="yearlyChartData"
+          />
         </div>
       </section>
 
@@ -102,7 +220,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
                 <span class="font-semibold">Игр сыграно</span>
                 <span class="text-muted-foreground text-base/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">34</span>
+              <span class="mt-3 text-xl font-semibold">{{ gamesPlayed }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
@@ -117,7 +235,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
                 <span class="font-semibold">Дано ответов</span>
                 <span class="text-muted-foreground text-base/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">96</span>
+              <span class="mt-3 text-xl font-semibold">{{ totalAnswers }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
@@ -132,7 +250,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
                 <span class="font-semibold">Правильных ответов</span>
                 <span class="text-muted-foreground text-base/4">в штуках</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">48</span>
+              <span class="mt-3 text-xl font-semibold">{{ correctAnswers }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
@@ -147,7 +265,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
                 <span class="font-semibold">Среднее время ответа</span>
                 <span class="text-muted-foreground text-base/4">в секундах</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">16.4с</span>
+              <span class="mt-3 text-xl font-semibold">{{ averageAnswerTime }}</span>
             </div>
             <Separator class="!w-[calc(100%+4px)] -ml-1" />
           </div>
@@ -162,7 +280,7 @@ function switchBlock(block: 'week' | 'month' | 'allTime') {
                 <span class="font-semibold">Максимальный стрик</span>
                 <span class="text-muted-foreground text-base/4 pb-1">в днях</span>
               </div>
-              <span class="mt-3 text-xl font-semibold">3</span>
+              <span class="mt-3 text-xl font-semibold">{{ maxStreak }}</span>
             </div>
           </div>
         </li>

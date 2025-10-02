@@ -10,6 +10,25 @@ import WolfCharactersSrc from '@/assets/images/characters/wolf.png';
 import {Button} from "@/components/ui/button";
 import { Badge } from '@/components/ui/badge';
 import { Icon } from '@/components/ui/icon';
+import { profile } from '@/lib/storage/profile';
+import { computed } from 'vue';
+
+// Вычисляем текст для отображения streak
+const streakText = computed(() => {
+  const streak = profile.value.statistics.streak
+  if (streak === 0) return '0 дней'
+  if (streak === 1) return '1 день'
+  if (streak >= 2 && streak <= 4) return `${streak} дня`
+  return `${streak} дней`
+})
+
+// Текущий день (для отображения)
+const currentDay = computed(() => {
+  return profile.value.statistics.gamesPlayed.length + 1
+})
+
+// Баланс монет
+const balance = computed(() => profile.value.balance)
 </script>
 
 <template>
@@ -35,12 +54,12 @@ import { Icon } from '@/components/ui/icon';
         <div class="bg-white rounded-xl px-4 py-6 overflow-hidden flex flex-col gap-12">
           <Badge class="bg-orange-100 flex gap-2 text-base w-fit rounded-lg items-center text-orange-500 px-2 m-auto font-semibold">
             <Icon name="flame-gradient" class="!size-4" />
-            3 дня
+            {{ streakText }}
           </Badge>
 
           <div class="flex flex-col gap-4">
             <div class="font-semibold text-center text-xl">
-              День 4
+              День {{ currentDay }}
             </div>
 
             <div class="text-muted-foreground text-center leading-5">
@@ -88,7 +107,7 @@ import { Icon } from '@/components/ui/icon';
 
         <div class="bg-primary rounded-xl p-4 items-center">
           <div class="text-white font-semibold text-xl flex gap-2 w-fit m-auto">
-            3 <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6 object-contain">
+            {{ balance }} <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6 object-contain">
           </div>
           <div class="text-muted-foreground">
             Баланс
