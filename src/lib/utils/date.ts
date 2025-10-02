@@ -117,3 +117,15 @@ export function isInCurrentMonth(dateString: string): boolean {
     return date.getFullYear() === today.getFullYear() &&
         date.getMonth() === today.getMonth()
 }
+
+/**
+ * Получает количество секунд до полуночи
+ * @returns количество секунд до 00:00 следующего дня
+ */
+export function getSecondsUntilMidnight(): number {
+    const now = new Date()
+    const midnight = new Date(now)
+    midnight.setHours(24, 0, 0, 0)
+
+    return Math.floor((midnight.getTime() - now.getTime()) / 1000)
+}

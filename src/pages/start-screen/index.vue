@@ -10,8 +10,10 @@ import WolfCharactersSrc from '@/assets/images/characters/wolf.png';
 import {Button} from "@/components/ui/button";
 import { Badge } from '@/components/ui/badge';
 import { Icon } from '@/components/ui/icon';
+import Counter from '@/components/ui/counter/Counter.vue';
 import { profile } from '@/lib/storage/profile';
-import { computed } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { getDateString, getSecondsUntilMidnight } from '@/lib/utils/date';
 
 // Вычисляем текст для отображения streak
 const streakText = computed(() => {
@@ -29,6 +31,37 @@ const currentDay = computed(() => {
 
 // Баланс монет
 const balance = computed(() => profile.value.balance)
+
+// Проверяем, была ли игра сегодня
+const isPlayedToday = computed(() => {
+  const today = getDateString()
+  return profile.value.statistics.gamesPlayed.some(game => game.date === today)
+})
+
+// Таймер до следующего дня
+const secondsUntilMidnight = ref(getSecondsUntilMidnight())
+const hours = computed(() => Math.floor(secondsUntilMidnight.value / 3600))
+const minutes = computed(() => Math.floor((secondsUntilMidnight.value % 3600) / 60))
+const seconds = computed(() => secondsUntilMidnight.value % 60)
+
+let timerInterval: ReturnType<typeof setInterval> | null = null
+
+onMounted(() => {
+  timerInterval = setInterval(() => {
+    const newSeconds = getSecondsUntilMidnight()
+    secondsUntilMidnight.value = newSeconds
+    
+    // Когда достигли полуночи, обновляем состояние
+    if (newSeconds > secondsUntilMidnight.value + 3600) {
+      // Произошло обновление дня
+      location.reload()
+    }
+  }, 1000)
+})
+
+onUnmounted(() => {
+  if (timerInterval) clearInterval(timerInterval)
+})
 </script>
 
 <template>
@@ -90,11 +123,85 @@ const balance = computed(() => profile.value.balance)
             </div>
           </div>
 
-          <Button class="w-full text-base glare" size="lg" asChild>
+          <Button 
+            v-if="!isPlayedToday"
+            class="w-full text-base glare" 
+            size="lg" 
+            asChild
+          >
             <RouterLink :to="{ name: 'session' }">
               Начать день
             </RouterLink>
           </Button>
+          
+          <div v-else class="w-full flex flex-col items-center gap-3">
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center">
+                  <Counter 
+                    :value="hours"
+                    :font-size="32"
+                    :places="[10, 1]"
+                    :gap="4"
+                    :horizontal-padding="0"
+                    :padding="12"
+                    text-color="currentColor"
+                    font-weight="700"
+                    :gradient-height="0"
+                    :digit-style="{
+                      backgroundColor: 'var(--color-muted)',
+                      borderRadius: '8px',
+                      width: '2ch'
+                    }"
+                    class="text-muted-foreground"
+                  />
+                  <span class="text-muted-foreground text-xs mt-1">часов</span>
+                </div>
+              </div>
+              <span class="text-3xl font-semibold text-muted-foreground pb-5">:</span>
+              <div class="flex flex-col items-center">
+                <Counter 
+                  :value="minutes"
+                  :font-size="32"
+                  :places="[10, 1]"
+                  :gap="4"
+                  :horizontal-padding="0"
+                  :padding="12"
+                  text-color="currentColor"
+                  font-weight="700"
+                  :gradient-height="0"
+                  :digit-style="{
+                    backgroundColor: 'var(--color-muted)',
+                    borderRadius: '8px',
+                    width: '2ch'
+                  }"
+                  class="text-muted-foreground"
+                />
+                <span class="text-muted-foreground text-xs mt-1">минут</span>
+              </div>
+              <span class="text-3xl font-semibold text-muted-foreground pb-5">:</span>
+              <div class="flex flex-col items-center">
+                <Counter 
+                  :value="seconds"
+                  :font-size="32"
+                  :places="[10, 1]"
+                  :gap="4"
+                  :horizontal-padding="0"
+                  :padding="12"
+                  text-color="currentColor"
+                  font-weight="700"
+                  :gradient-height="0"
+                  :digit-style="{
+                    backgroundColor: 'var(--color-muted)',
+                    borderRadius: '8px',
+                    width: '2ch'
+                  }"
+                  class="text-muted-foreground"
+                />
+                <span class="text-muted-foreground text-xs mt-1">секунд</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
