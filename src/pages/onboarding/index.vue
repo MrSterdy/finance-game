@@ -16,9 +16,9 @@ const router = useRouter()
 
 // Цвета фона для каждого шага онбординга
 const backgroundColors = [
-  '#FDC5AC', // Step 0 - HelpAnimalsOnboardingContent (персиковый)
+  '#BED7FF', // Step 0 - HelpAnimalsOnboardingContent (голубой)
   '#FDBFCC', // Step 1 - MakeMoneyOnboardingContent (розовый)
-  '#BED7FF'  // Step 2 - KeepProgressOnboardingContent (голубой)
+  '#FDC5AC'  // Step 2 - KeepProgressOnboardingContent (персиковый)
 ];
 
 // Вычисляемое значение текущего цвета фона
