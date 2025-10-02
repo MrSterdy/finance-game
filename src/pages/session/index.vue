@@ -109,37 +109,49 @@ const handleNext = () => {
   }
 }
 
-// Обработка драга карточки в реальном времени
-const handleDrag = (_event: PointerEvent, info: { offset: { x: number; y: number } }) => {
+// Обработка драга карточки с помощью pointer events
+const isDragging = ref(false)
+const dragStartX = ref(0)
+const dragStartY = ref(0)
+
+const handlePointerDown = (event: PointerEvent) => {
   if (!showAnswer.value) return
   
-  const { x } = info.offset
-  
-  // Вычисляем rotation на основе смещения по X
-  // Максимальный наклон 15 градусов при смещении 200px
-  const maxRotation = 15
-  const rotationFactor = Math.min(Math.abs(x) / 200, 1)
-  cardRotate.value = x > 0 ? rotationFactor * maxRotation : 0
+  isDragging.value = true
+  dragStartX.value = event.clientX
+  dragStartY.value = event.clientY
 }
 
-// Обработка окончания драга карточки
-const handleDragEnd = (_event: PointerEvent, info: { offset: { x: number; y: number } }) => {
-  if (!showAnswer.value) {
-    // Возвращаем карточку на место если ответ еще не выбран
-    cardRotate.value = 0
-    return
-  }
+const handlePointerMove = (event: PointerEvent) => {
+  if (!isDragging.value || !showAnswer.value) return
+  
+  const x = event.clientX - dragStartX.value
+  const y = event.clientY - dragStartY.value
+  
+  // Применяем ограничения как в dragConstraints
+  const constrainedX = Math.max(0, Math.min(x, 500))
+  const constrainedY = Math.max(-50, Math.min(y, 0))
+  
+  cardX.value = constrainedX
+  cardY.value = constrainedY
+  
+  // Вычисляем rotation на основе смещения по X
+  const maxRotation = 15
+  const rotationFactor = Math.min(Math.abs(constrainedX) / 200, 1)
+  cardRotate.value = constrainedX > 0 ? rotationFactor * maxRotation : 0
+}
 
-  const swipeThreshold = 70 // минимальное расстояние для свайпа
-  const { x, y } = info.offset
+const handlePointerUp = (event: PointerEvent) => {
+  if (!isDragging.value || !showAnswer.value) return
   
-  // Проверяем направление: свайп должен быть вправо и может быть чуть вверх
-  // Запрещаем свайп влево (x < 0) или вниз (y > 0) или слишком сильно вверх
+  isDragging.value = false
+  
+  const x = event.clientX - dragStartX.value
+  const y = event.clientY - dragStartY.value
+  
+  const swipeThreshold = 70
   const isValidDirection = x > 0 && y >= -50 && y <= 20
-  
-  // Вычисляем общую дистанцию свайпа (гипотенуза)
   const swipeDistance = Math.sqrt(x * x + y * y)
-  
   const isValidSwipe = isValidDirection && swipeDistance > swipeThreshold
   
   if (isValidSwipe) {
@@ -149,18 +161,17 @@ const handleDragEnd = (_event: PointerEvent, info: { offset: { x: number; y: num
     cardOpacity.value = 0
     cardRotate.value = 30
     
-    // Переходим к следующему вопросу после анимации
     setTimeout(() => {
       handleNext()
-      // Сбрасываем позицию для новой карточки
       cardX.value = 0
       cardY.value = 0
       cardOpacity.value = 1
       cardRotate.value = 0
     }, 300)
   } else {
-    // Возвращаем карточку на место при неправильном свайпе
-    // Просто сбрасываем rotation - позиция вернётся автоматически благодаря dragSnapToOrigin
+    // Возвращаем карточку на место
+    cardX.value = 0
+    cardY.value = 0
     cardRotate.value = 0
   }
 }
@@ -337,16 +348,23 @@ const getAnswerIcon = (answerIndex: number) => {
         </div>
       </div>
 
-      <section class="px-4 pt-12 pb-4 flex flex-col gap-4 flex-grow justify-between">
-        <div>
+      <section class="px-4 pt-12 pb-4 flex flex-col gap-4 flex-grow justify-between relative">
+        <!-- Невидимый overlay для перехвата событий свайпа -->
+        <div
+          v-if="showAnswer"
+          class="fixed inset-0 z-40 touch-none"
+          @pointerdown="handlePointerDown"
+          @pointermove="handlePointerMove"
+          @pointerup="handlePointerUp"
+          @pointercancel="handlePointerUp"
+        ></div>
+        
+        <div class="relative z-20">
           <div class="relative">
             <Motion
               :key="cardKey"
               tag="div"
               class="flex flex-col gap-8 p-6 h-full bg-white rounded-2xl touch-none"
-              :drag="showAnswer"
-              :dragSnapToOrigin="true"
-              :dragMomentum="false"
               :initial="{ scale: 0.8, opacity: 0 }"
               :animate="{ 
                 scale: 1, 
@@ -361,17 +379,8 @@ const getAnswerIcon = (answerIndex: number) => {
                 damping: 25,
                 mass: 0.7
               }"
-              :dragTransition="{ 
-                bounceStiffness: 250, 
-                bounceDamping: 25,
-                power: 0.2
-              }"
-              :dragConstraints="{ left: 0, right: 500, top: -50, bottom: 0 }"
-              :dragElastic="0"
-              @drag="handleDrag"
-              @dragEnd="handleDragEnd"
             >
-              <div class="flex items-center justify-between gap-8">
+              <div class="flex items-center justify-between relative gap-8">
                 <Badge
                 :class="`${timerColors.badgeClass} px-3 text-base font-semibold rounded-lg transition-colors`"
               >
@@ -382,6 +391,7 @@ const getAnswerIcon = (answerIndex: number) => {
                    <PopoverTrigger as-child>
                      <Motion
                        tag="div"
+                       class="absolute right-0 z-50"
                        :initial="{ scale: 0, opacity: 0 }"
                        :animate="{ scale: 1, opacity: 1 }"
                        :transition="{ 
@@ -452,6 +462,7 @@ const getAnswerIcon = (answerIndex: number) => {
             </button>
           </div>
         </div>
+        
         <!-- Подсказка для свайпа -->
         <Transition
           enter-active-class="transition-all duration-300"
@@ -461,7 +472,7 @@ const getAnswerIcon = (answerIndex: number) => {
           leave-from-class="opacity-100 translate-y-0"
           leave-to-class="opacity-0 translate-y-2"
         >
-          <div v-if="showAnswer" class="flex items-center justify-center gap-2 text-muted-foreground text-sm">
+          <div v-if="showAnswer" class="relative z-20 flex items-center justify-center gap-2 text-muted-foreground text-sm">
             <span>Свайпните карточку вправо</span>
           </div>
         </Transition>
