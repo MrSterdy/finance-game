@@ -369,7 +369,7 @@ const getAnswerIcon = (answerIndex: number) => {
           @pointercancel="handlePointerUp"
         ></div>
         
-        <div class="relative z-20">
+        <div>
           <div class="relative">
             <Motion
               :key="cardKey"
