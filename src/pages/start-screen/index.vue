@@ -73,15 +73,13 @@ onUnmounted(() => {
         <h1 class="font-semibold text-xl text-center">Игра</h1>
       </header>
 
-      <section class="px-4 py-2 relative overflow-hidden">
-        <RouterLink :to="{ name: 'statistics' }">
-          <div class="bg-white rounded-xl px-4 py-2 relative overflow-hidden">
+      <div class="px-4 py-2">
+        <RouterLink class="bg-white rounded-xl px-5 py-4 relative overflow-hidden inline-flex w-full flex-col" :to="{ name: 'statistics' }">
             <div class="font-semibold">Статистика</div>
             <div class="text-muted-foreground">Ваш прогресс в игре</div>
-            <img :src="TrophyMiscellaneousSrc" alt="trophy" class="absolute right-0 bottom-0 w-20">
-          </div>
+            <img :src="TrophyMiscellaneousSrc" alt="trophy" class="absolute right-0 bottom-0 h-20">
         </RouterLink>
-      </section>
+      </div>
 
       <section class="px-4 py-2">
         <div class="bg-white rounded-xl px-4 py-6 overflow-hidden flex flex-col gap-12">
@@ -205,20 +203,20 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <section class="px-4 py-2 flex gap-2">
-        <div class="bg-white rounded-xl p-4 relative overflow-hidden w-full">
+      <div class="px-4 py-2 flex gap-2">
+        <div class="bg-white rounded-xl px-5 py-4 relative overflow-hidden w-full">
           <div class="font-semibold flex items-center gap-2">Обменять <img :src="CoinMiscellaneousSrc" alt="coin" class="w-5"> на призы</div>
           <div class="text-muted-foreground">от Газпромбанка</div>
           <img :src="GiftMiscellaneousSrc" alt="trophy" class="absolute -right-3 -bottom-7 w-20">
         </div>
 
-        <div class="bg-primary rounded-xl p-4 flex flex-col flex-shrink-0">
+        <div class="bg-primary rounded-xl px-4 py-3.5 flex flex-col flex-shrink-0">
           <div class="text-white font-semibold text-xl flex gap-2">
             {{ balance }} <img :src="CoinMiscellaneousSrc" alt="coin" class="w-6 object-contain">
           </div>
           <span class="text-muted-foreground">Баланс</span>
         </div>
-      </section>
+      </div>
     </main>
   </div>
 </template>
