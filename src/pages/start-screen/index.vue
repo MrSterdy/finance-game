@@ -34,7 +34,7 @@ import { Icon } from '@/components/ui/icon';
       <section class="px-4 py-2">
         <div class="bg-white rounded-xl px-4 py-6 overflow-hidden flex flex-col gap-12">
           <Badge class="bg-orange-100 flex gap-2 text-base w-fit rounded-lg items-center text-orange-500 px-2 m-auto font-semibold">
-            <Icon name="flame" class="!size-4" />
+            <Icon name="flame-gradient" class="!size-4" />
             3 дня
           </Badge>
 
