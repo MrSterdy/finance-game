@@ -141,13 +141,14 @@ const handlePointerMove = (event: PointerEvent) => {
   cardRotate.value = constrainedX > 0 ? rotationFactor * maxRotation : 0
 }
 
-const handlePointerUp = (event: PointerEvent) => {
+const handlePointerUp = () => {
   if (!isDragging.value || !showAnswer.value) return
   
   isDragging.value = false
   
-  const x = event.clientX - dragStartX.value
-  const y = event.clientY - dragStartY.value
+  // Используем реальное смещение карточки, а не смещение пальца/курсора
+  const x = cardX.value
+  const y = cardY.value
   
   const swipeThreshold = 70
   const isValidDirection = x > 0 && y >= -50 && y <= 20
@@ -161,12 +162,19 @@ const handlePointerUp = (event: PointerEvent) => {
     cardOpacity.value = 0
     cardRotate.value = 30
     
+    // Проверяем, это последний вопрос или нет
+    const isLastQuestion = session.value && currentQuestionIndex.value >= session.value.items.length - 1
+    
     setTimeout(() => {
       handleNext()
-      cardX.value = 0
-      cardY.value = 0
-      cardOpacity.value = 1
-      cardRotate.value = 0
+      
+      // Если это НЕ последний вопрос, сбрасываем позицию для новой карточки
+      if (!isLastQuestion) {
+        cardX.value = 0
+        cardY.value = 0
+        cardOpacity.value = 1
+        cardRotate.value = 0
+      }
     }, 300)
   } else {
     // Возвращаем карточку на место
