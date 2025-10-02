@@ -4,7 +4,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 0,
             entries: ['8 700₽', '9 000₽', '8 500₽', '9 100₽'],
-            explanation: '10 000₽ - 13% = 8 700₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 100
     },
@@ -13,7 +31,20 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 1,
             entries: ['8 000₽', '10 000₽', '12 000₽', '15 000₽'],
-            explanation: '120 000₽ / 12 = 10 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [],
+            }
         },
         reward: 150
     },
@@ -22,7 +53,18 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 2,
             entries: ['52 000₽', '52 500₽', '53 000₽', '54 000₽'],
-            explanation: '50 000₽ * 1.06 = 53 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 200
     },
@@ -31,7 +73,13 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 0,
             entries: ['116 640₽', '116 000₽', '118 000₽', '120 000₽'],
-            explanation: '100 000₽ * 1.08^2 = 116 640₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [],
+                links: [],
+            }
         },
         reward: 250
     },
@@ -40,7 +88,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 1,
             entries: ['700 000₽', '1 400 000₽', '1 000 000₽', '500 000₽'],
-            explanation: '1 000 000₽ * 1.4 = 1 400 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 120
     },
@@ -49,7 +115,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 2,
             entries: ['45 000₽', '50 000₽', '55 060₽', '60 000₽'],
-            explanation: '5 000 000₽ * 0.12 / 12 = 50 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 300
     },
@@ -58,7 +142,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 1,
             entries: ['25 000₽', '28 000₽', '30 000₽', '32 000₽'],
-            explanation: '80 000₽ * (1 - 0.3 - 0.2 - 0.15) = 28 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 180
     },
@@ -67,7 +169,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 0,
             entries: ['156 000₽', '140 000₽', '120 000₽', '100 000₽'],
-            explanation: '400 000₽ * 1.08^3 = 156 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 220
     },
@@ -76,7 +196,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 3,
             entries: ['85 000₽', '88 000₽', '89 000₽', '90 000₽'],
-            explanation: '1000 * 90₽ = 90 000₽'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 80
     },
@@ -85,7 +223,25 @@ export const QUESTIONS = [
         options: {
             correctEntryIndex: 1,
             entries: ['15%', '20%', '25%', '30%'],
-            explanation: '25% от зарплаты'
+            explanation: {
+                paragraphs: [
+                    'Кешбэк — это возврат части суммы покупки от банк'
+                ],
+                buttons: [
+                    {
+                        title: 'Категории кэшбека',
+                        description: 'Доступные вам в этом месяце',
+                        icon: 'tag',
+                        url: 'https://www.google.com'
+                    }
+                ],
+                links: [
+                    {
+                        content: 'Доступные вам в этом месяце',
+                        url: 'https://www.google.com'
+                    }
+                ]
+            }
         },
         reward: 100
     }

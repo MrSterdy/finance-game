@@ -6,7 +6,19 @@ export interface QuestionItem {
     options: {
         correctEntryIndex: number
         entries: string[]
-        explanation: string
+        explanation: {
+            paragraphs: string[]
+            buttons: {
+                title: string
+                description: string
+                icon: string
+                url: string
+            }[]
+            links: {
+                content: string
+                url: string
+            }[]
+        }
     }
     reward: number
 }
