@@ -1,8 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { profile } from '@/lib/storage/profile'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      name: 'home',
+      path: '/',
+      redirect: () => {
+        // Редирект в зависимости от статуса onboarding
+        return profile.value.onboardingCompleted ? '/start-screen' : '/onboarding'
+      }
+    },
     {
       name: 'onboarding',
       path: '/onboarding',

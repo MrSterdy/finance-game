@@ -18,6 +18,7 @@ export const profile = useLocalStorage('finquiz:profile', {
         maxStreak: 0, // максимальный стрик за все время
     },
     lastJoinedAt: null as string | null,
+    onboardingCompleted: false,
 });
 
 /**

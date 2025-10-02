@@ -4,7 +4,8 @@ import { Progress } from '@/components/ui/progress';
 import KeepProgressOnboardingContent from '@/components/pages/onboarding/KeepProgressOnboardingContent.vue';
 import MakeMoneyOnboardingContent from '@/components/pages/onboarding/MakeMoneyOnboardingContent.vue';
 import HelpAnimalsOnboardingContent from '@/components/pages/onboarding/HelpAnimalsOnboardingContent.vue';
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
+import { profile } from '@/lib/storage/profile';
 
 // Текущий шаг онбординга (0, 1 или 2)
 const currentStep = ref(0);
@@ -40,7 +41,9 @@ const progressValue = (step: number) => {
 const nextStep = () => {
   if (currentStep.value < totalSteps - 1) {
     currentStep.value++;
-  }else{
+  } else {
+    // Отмечаем онбординг как завершенный
+    profile.value.onboardingCompleted = true;
     router.push('/start-screen')
   }
 };
