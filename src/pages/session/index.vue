@@ -128,17 +128,17 @@ const handlePointerMove = (event: PointerEvent) => {
   const x = event.clientX - dragStartX.value
   const y = event.clientY - dragStartY.value
   
-  // Применяем ограничения как в dragConstraints
-  const constrainedX = Math.max(0, Math.min(x, 500))
+  // Применяем ограничения: влево и вправо до 500px
+  const constrainedX = Math.max(-500, Math.min(x, 500))
   const constrainedY = Math.max(-50, Math.min(y, 0))
   
   cardX.value = constrainedX
   cardY.value = constrainedY
   
-  // Вычисляем rotation на основе смещения по X
+  // Вычисляем rotation на основе смещения по X (в обе стороны)
   const maxRotation = 15
   const rotationFactor = Math.min(Math.abs(constrainedX) / 200, 1)
-  cardRotate.value = constrainedX > 0 ? rotationFactor * maxRotation : 0
+  cardRotate.value = constrainedX > 0 ? rotationFactor * maxRotation : -rotationFactor * maxRotation
 }
 
 const handlePointerUp = () => {
@@ -151,16 +151,18 @@ const handlePointerUp = () => {
   const y = cardY.value
   
   const swipeThreshold = 70
-  const isValidDirection = x > 0 && y >= -50 && y <= 20
+  // Разрешаем свайп в обе стороны (влево и вправо)
+  const isValidDirection = Math.abs(x) > 0 && y >= -50 && y <= 20
   const swipeDistance = Math.sqrt(x * x + y * y)
   const isValidSwipe = isValidDirection && swipeDistance > swipeThreshold
   
   if (isValidSwipe) {
-    // Анимируем исчезновение карточки
-    cardX.value = window.innerWidth
+    // Анимируем исчезновение карточки в нужном направлении
+    const direction = x > 0 ? 1 : -1
+    cardX.value = direction * window.innerWidth
     cardY.value = -50
     cardOpacity.value = 0
-    cardRotate.value = 30
+    cardRotate.value = direction * 30
     
     // Проверяем, это последний вопрос или нет
     const isLastQuestion = session.value && currentQuestionIndex.value >= session.value.items.length - 1
