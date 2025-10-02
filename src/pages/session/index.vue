@@ -362,7 +362,7 @@ const getAnswerIcon = (answerIndex: number) => {
         </div>
       </div>
 
-      <section class="px-4 pt-12 pb-4 flex flex-col gap-4 flex-grow justify-between relative">
+      <section class="px-4 pt-12 pb-4 flex flex-col gap-4 flex-grow justify-between relative isolate">
         <!-- Невидимый overlay для перехвата событий свайпа -->
         <div
           v-if="showAnswer"
@@ -374,11 +374,11 @@ const getAnswerIcon = (answerIndex: number) => {
         ></div>
         
         <div>
-          <div class="relative">
+          <div>
             <Motion
               :key="cardKey"
               tag="div"
-              class="flex flex-col gap-8 p-6 h-full bg-white rounded-2xl touch-none"
+              class="flex flex-col gap-8 p-6 h-full bg-white rounded-2xl touch-none relative z-50 pointer-events-none"
               :initial="{ scale: 0.8, opacity: 0 }"
               :animate="{ 
                 scale: 1, 
@@ -394,7 +394,7 @@ const getAnswerIcon = (answerIndex: number) => {
                 mass: 0.7
               }"
             >
-              <div class="flex items-center justify-between relative gap-8">
+              <div class="flex items-center justify-between relative z-[60] gap-8">
                 <Badge
                 :class="`${timerColors.badgeClass} px-3 text-base font-semibold rounded-lg transition-colors`"
               >
@@ -405,7 +405,7 @@ const getAnswerIcon = (answerIndex: number) => {
                    <PopoverTrigger as-child>
                      <Motion
                        tag="div"
-                       class="absolute right-0 z-50"
+                       class="absolute right-0 z-[60] pointer-events-auto"
                        :initial="{ scale: 0, opacity: 0 }"
                        :animate="{ scale: 1, opacity: 1 }"
                        :transition="{ 
@@ -421,7 +421,7 @@ const getAnswerIcon = (answerIndex: number) => {
                        </Badge>
                      </Motion>
                    </PopoverTrigger>
-                  <PopoverContent class="relative bg-foreground text-background border-none shadow-none px-3 pt-2 pb-3 flex flex-col gap-3 rounded-[12px]" :side-offset="12" align="end" side="bottom">
+                  <PopoverContent class="relative bg-foreground text-background border-none shadow-none px-3 pt-2 pb-3 flex flex-col gap-3 rounded-[12px] w-80" :side-offset="12" align="end" side="bottom">
                     <Icon name="arrow-up" class="text-foreground absolute -top-2 right-3" />
                     <p v-for="(paragraph, index) in currentQuestion.question.options.explanation.paragraphs" :key="index">
                       {{ paragraph }}
@@ -432,7 +432,7 @@ const getAnswerIcon = (answerIndex: number) => {
                     <Button v-for="(button, index) in currentQuestion.question.options.explanation.buttons" :key="index" variant="secondary" class="h-auto justify-start text-start gap-4" asChild>
                       <a :href="button.url" target="_blank">
                         <Icon :name="button.icon as any" class="text-blue-600 flex-shrink-0 size-6" />
-                        <div class="flex flex-col">
+                        <div class="flex flex-col text-wrap">
                           <span class="text-base font-semibold">{{ button.title }}</span>
                           <span class="text-muted-foreground text-sm">{{ button.description }}</span>
                         </div>
