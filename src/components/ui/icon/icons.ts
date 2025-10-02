@@ -165,20 +165,24 @@ export const icons = {
     </clipPath>
   </defs>`
   },
-
   'chevron-left': {
     viewBox: '0 0 24 24',
     width: 24,
     height: 24,
     content: `<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
   },
-
   'chevron-right': {
     viewBox: '0 0 24 24',
     width: 24,
     height: 24,
     content: `<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
   },
+  'finger-touch': {
+    viewBox: '0 0 25 24',
+    width: 25,
+    height: 24,
+    content: `<path fill-rule="evenodd" clip-rule="evenodd" d="M11.5671 0C9.67352 0 8.1385 1.53502 8.1385 3.42858L8.13886 3.47839C8.14738 4.07675 8.85812 4.25783 9.38854 3.98075C10.0639 3.62795 10.832 3.42847 11.6467 3.42847C12.998 3.42847 14.2211 3.9773 15.1054 4.8642C15.5062 5.26632 16.1927 5.32737 16.4213 4.80762C16.6069 4.38564 16.7099 3.91914 16.7099 3.42858C16.7099 1.53502 15.175 0 13.2814 0H11.5671ZM8.28032 15.3671C5.32001 16.6012 4.7145 20.5304 7.16591 22.5985L7.39529 22.7921C8.16841 23.4442 9.1473 23.802 10.1588 23.802H17.8501C18.7302 23.802 19.6203 23.3484 20.0513 22.4832C20.6418 21.2977 20.9941 20.0215 20.9941 18.3204C20.9941 15.992 19.8361 14.4927 18.3131 13.5817C17.0987 12.8552 15.6553 12.4992 14.3874 12.3142V8.31218C14.3874 6.79843 13.1604 5.5713 11.6466 5.5713C10.1329 5.5713 8.90574 6.79843 8.90574 8.31218V15.1063L8.28032 15.3671Z" fill="currentColor"/>`,
+  }
 } as const
 
 export type IconName = keyof typeof icons

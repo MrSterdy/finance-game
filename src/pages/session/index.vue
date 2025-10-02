@@ -472,18 +472,24 @@ const getAnswerIcon = (answerIndex: number) => {
         </div>
         
         <!-- Подсказка для свайпа -->
-        <Transition
-          enter-active-class="transition-all duration-300"
-          enter-from-class="opacity-0 translate-y-2"
-          enter-to-class="opacity-100 translate-y-0"
-          leave-active-class="transition-all duration-300"
-          leave-from-class="opacity-100 translate-y-0"
-          leave-to-class="opacity-0 translate-y-2"
+        <Motion
+          v-if="showAnswer"
+          tag="div"
+          class="grid place-items-center flex-grow relative z-20 animate-pulse"
+          :initial="{ scale: 0, opacity: 0 }"
+          :animate="{ scale: 1, opacity: 1 }"
+          :transition="{ 
+            type: 'spring', 
+            stiffness: 150, 
+            damping: 10, 
+            mass: 0.3
+          }"
         >
-          <div v-if="showAnswer" class="relative z-20 flex items-center justify-center gap-2 text-muted-foreground text-sm">
-            <span>Свайпните карточку вправо</span>
+          <div class="flex items-center justify-center flex-col gap-2 text-muted-foreground text-sm">
+            <Icon name="finger-touch" class="size-6" />
+            <span>Смахни вправо/влево к следующему вопросу</span>
           </div>
-        </Transition>
+        </Motion>
       </section>
     </main>
     <!-- Экран результатов с анимацией -->
