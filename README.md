@@ -1,5 +1,7 @@
 # ФинКвиз 🎮💰
 
+![Презентация](./docs/showcase.png)
+
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.5-4FC08D?logo=vue.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?logo=vite)
